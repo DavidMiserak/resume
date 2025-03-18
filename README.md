@@ -7,7 +7,7 @@ This repository contains the LaTeX source files for generating David Miserak's p
 - `src/`: Contains all LaTeX source files
   - Main file: `miserak_david-cv.tex`
   - Experience: Individual job entries in separate files (e.g., `exp-vtds1.tex`)
-  - Education: Individual education entries (e.g., `edu-ms.tex`) 
+  - Education: Individual education entries (e.g., `edu-ms.tex`)
   - Other sections: `certifications.tex`, `skills.tex`
 - `build/`: Output directory for the compiled PDF
 

@@ -1,0 +1,46 @@
+name: Build LaTeX Resume
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'src/**'
+      - 'Makefile'
+      - '.github/workflows/**'
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Tectonic
+      uses: wtfjoke/setup-tectonic@v2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build Resume with Tectonic
+      run: |
+        mkdir -p build
+        tectonic --outdir=build --outfmt=pdf src/miserak_david-cv.tex
+
+    - name: Upload PDF as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: resume-pdf
+        path: build/miserak_david-cv.pdf
+        retention-days: 7
+
+    # Optional: Create release with PDF when tagged
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: build/miserak_david-cv.pdf
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,37 @@
+\documentclass[11pt,a4paper,sans]{moderncv}
+% ModernCV Version: v2.4.1
+
+\usepackage[utf8]{inputenc}
+%\usepackage{moderncvskillmatrix}
+\usepackage[margin=0.5in]{geometry}
+
+\usepackage{tabularx}
+
+\moderncvstyle{banking} % casual classic oldstyle fancy
+\moderncvcolor{black} % black blue burgundy green grey orange purple red
+
+\name{David}{Miserak}
+\title{R\'{e}sum\'{e}}
+%\address{284 S. Massanutten St.}{Strasburg, VA}{USA}
+\phone[fixed]{1-802-505-9526}
+%\phone[mobile]{+1~(802)~505~9526}
+\email{David.Miserak@gmail.com}
+
+%\homepage{www.DavidMiserak.com}
+\social[github]{DavidMiserak}
+\social[linkedin]{miserak}
+\photo[64pt][0.4pt]{src/meta-fullstack.pdf}
+
+%\quote{``Three things never come back -- time, word, and opportunity.  Therefore, do not waste time, choose words, and do not miss the opportunity.'' - Confucius}
+
+\begin{document}
+\makecvtitle
+
+% 1,2,3 -> Education, Experience, Certifications
+\input{education.tex}
+\input{experience.tex}
+\input{certifications.tex}
+
+\input{skills.tex}
+
+\end{document}

@@ -17,20 +17,22 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
-    - name: Setup Tectonic
-      uses: wtfjoke/setup-tectonic@v2
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Install TeX Live
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra latexmk
 
-    - name: Build Resume with Tectonic
+    - name: Build Resume with pdflatex
       run: |
         mkdir -p build
-        tectonic --outdir=build --outfmt=pdf src/miserak_david-cv.tex
+        cd src
+        pdflatex -interaction=nonstopmode -output-directory=../build miserak_david-cv.tex
+        pdflatex -interaction=nonstopmode -output-directory=../build miserak_david-cv.tex  # Run twice for references
 
     - name: Upload PDF as artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: resume-pdf
         path: build/miserak_david-cv.pdf

@@ -1,0 +1,72 @@
+repos:
+  # Check for conventional commit messages
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v3.4.0
+    hooks:
+    - id: conventional-pre-commit
+      stages: [commit-msg]
+      args: []
+
+  # General file checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+    - id: trailing-whitespace
+    - id: end-of-file-fixer
+    - id: check-yaml
+    - id: check-added-large-files
+      args: ['--maxkb=500']
+    - id: mixed-line-ending
+      args: ['--fix=lf']
+    - id: check-merge-conflict
+
+  # LaTeX specific
+  - repo: https://github.com/jonasbb/pre-commit-latex-hooks
+    rev: v1.4.4
+    hooks:
+      - id: american-eg-ie
+      - id: cleveref-capitalization
+      - id: consistent-spelling
+        args:
+            [
+              "--emph=et al.",
+              "--emph=a priori",
+              "--emph=a posteriori",
+              '--regex=naive=\bna(i|\\"i)ve',
+            ]
+      - id: csquotes
+      - id: ensure-labels-for-sections
+        # args:
+        #     [
+        #       # If present only check that there is a \label{} but not the value
+        #       "--ignore-label-content",
+        #     ]
+      - id: no-space-in-cite
+      - id: tilde-cite
+      - id: unique-labels
+      - id: cleveref-instead-of-autoref
+
+  # Enforce a consistent style for LaTeX documents
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: trailing-whitespace
+        files: ".*\\.(?:tex|py)$"
+
+  # Search for problematic terms in the text
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.1
+    hooks:
+    - id: codespell
+      args: ['--ignore-words=.codespellignore']
+      files: '\.(tex|md)$'
+
+  # Optional: Lint Markdown files if you have any
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.44.0
+    hooks:
+    - id: markdownlint
+      args: ["--config", ".markdownlint.yaml"]
+      files: '\.(md)$'
